@@ -7,15 +7,16 @@ let calculation = () => {
     let cartIcon = document.getElementById("cartAmount");
     cartIcon.innerHTML = basket.map((x) => x.item).reduce((x, y) => x + y, 0);
 };
-
 calculation();
+
+
 
 let generateCartItems = () => {
     if (basket.length !== 0) {
         return (ShoppingCart.innerHTML = basket
             .map((x) => {
-                let { id, item } = x;
-                let search = shopItemsData.find((y) => y.id === id) || [];
+                let { id, item } = x; /* এখানে x দ্বারা আমাদের ৪ টা object কে বুঝায়। এবং এখন এটি আসতেছে basket থেকে। */
+                let search = shopItemsData.find((y) => y.id === id) || []; /* এখানে y দ্বারা ও object কে বুঝায়। এবং এটি আসতেছে Data.js থেকে। এখানে y.id === id দ্বারা বুজাচ্ছে যদি data.js এর id এবং basket এর id মিলে যায় তাহলে নিচের কোডগুলো return করবে। তা না হলে একটা empty array return করবে। */
                 return `
                 <div class="cart-item">
                     <img width="100" src=${search.img} alt="" />
@@ -35,6 +36,7 @@ let generateCartItems = () => {
                             <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
                         </div>
                         <h3>$ ${item * search.price}</h3>
+
                     </div>
                 </div>
                 `;
@@ -50,7 +52,6 @@ let generateCartItems = () => {
         `;
     }
 };
-
 generateCartItems();
 
 let increment = (id) => {
@@ -111,7 +112,6 @@ let clearCart = () => {
 let TotalAmount = () => {
 
     if (basket.length !== 0) {
-
         let amount = basket
         .map((x) => {
             let { item, id } = x;
@@ -128,5 +128,4 @@ let TotalAmount = () => {
         `;
     } else return;
 };
-
 TotalAmount();
